@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -15,17 +16,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Models.Import_Product;
+import Models.Export_Product;
 import Models.dbConnects;
 
 @WebServlet(urlPatterns= {
-		"/update-import/*", 
-		"/new-import",
-		"/insert-import",
-		"/edit-import",
-		"/list-import",
-		"/delete-import"})
-public class ImportProductController extends HttpServlet {
+		"/update-export/*", 
+		"/new-export",
+		"/insert-export",
+		"/edit-export",
+		"/list-export",
+		"/delete-export"})
+public class ExportProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private dbConnects bd;
@@ -43,7 +44,7 @@ public class ImportProductController extends HttpServlet {
 	}
     
 
-	public ImportProductController(){
+	public ExportProductController(){
 		super();
 	}
 
@@ -55,23 +56,23 @@ public class ImportProductController extends HttpServlet {
 		String action = request.getServletPath();
 		try {
 			switch (action) {
-				case "/insert-import":	
-					insertImportProduct(request,response);
+				case "/insert-export":	
+					insertExportProduct(request,response);
 					break;
-				case "/new-import":
+				case "/new-export":
 					newForm(request, response);
 					break;
-				case "/update-import":
-					uppdateImportProduct(request,response);
+				case "/update-export":
+					uppdateExportProduct(request,response);
 					break;
-				case "/edit-import":
+				case "/edit-export":
 					editForm(request,response);
 					break;
-				case "/delete-import":
-					deleteImportProduct(request,response);
+				case "/delete-export":
+					deleteExportProduct(request,response);
 					break;
 				default:
-					listImportProduct(request, response);
+					listExportProduct(request, response);
 					break;
 			}
 	
@@ -84,59 +85,60 @@ public class ImportProductController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	private void newForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Views/NewImportProduct.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Views/NewExportProduct.jsp");
 		dispatcher.forward(request, response);
 	}
 	private void editForm(HttpServletRequest request,HttpServletResponse response ) throws ServletException,IOException, SQLException{
 		int id_product=Integer.parseInt(request.getParameter("ID"));
-		Import_Product product = bd.getImportProduct(id_product);
+		Export_Product product = bd.getExportProduct(id_product);
 		request.setAttribute("product", product);
-		RequestDispatcher dispatcher=request.getRequestDispatcher("Views/NewImportProduct.jsp");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("Views/NewExportProduct.jsp");
 		dispatcher.forward(request, response);		
 	}
-	private void uppdateImportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException{
+	private void uppdateExportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException{
 		int id=Integer.parseInt(request.getParameter("ID"));
 		String code=request.getParameter("code");
 		String code_sp=request.getParameter("code_sp");
-		int price=Integer.parseInt(request.getParameter("price_in"));
-		Date date_in;
+		int price=Integer.parseInt(request.getParameter("price_out"));
+		Date date_out;
 		try {
-			date_in = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("date_in"));
-			Import_Product product = new Import_Product(id, code, code_sp, price, date_in);
-			bd.updateImportProduct(product);
-			response.sendRedirect("list-import");
+			date_out = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("date_out"));
+			Export_Product product = new Export_Product(id, code, code_sp, price, date_out);
+			bd.updateExportProduct(product);
+			response.sendRedirect("list-export");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	private void insertImportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+	private void insertExportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
 		//int id=Integer.parseInt(request.getParameter("id"));
 		String code=request.getParameter("code");
 		String code_sp=request.getParameter("code_sp");
-		int price_in=Integer.parseInt(request.getParameter("price_in"));
-		Date date_in;
+		int price_out=Integer.parseInt(request.getParameter("price_out"));
+		Date date_out;
+		String date = request.getParameter("date_out");
 		try {
-			date_in = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("date_in"));
-			Import_Product product=new Import_Product(code, code_sp, price_in, date_in);
-			if(bd.insertImportProduct(product) == true) {
-				response.sendRedirect("list-import");
+			date_out = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+			Export_Product product=new Export_Product(code, code_sp, price_out, date_out);
+			if(bd.insertExportProduct(product) == true) {
+				response.sendRedirect("list-export");
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	private void deleteImportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+	private void deleteExportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
 		int id = Integer.parseInt(request.getParameter("ID"));		
-		Import_Product product = new Import_Product(id);
-		bd.deleteImportProduct(product);
-		response.sendRedirect("list-import");
+		Export_Product product = new Export_Product(id);
+		bd.deleteExportProduct(product);
+		response.sendRedirect("list-export");
 	}
-	private void listImportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
-		List<Import_Product> listproduct = bd.getAllImportProduct();
+	private void listExportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
+		List<Export_Product> listproduct = bd.getAllExportProduct();
 		request.setAttribute("listProduct",listproduct);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Views/ListImportProduct.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Views/ListExportProduct.jsp");
 		dispatcher.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

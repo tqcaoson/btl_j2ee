@@ -8,17 +8,17 @@
 </head>
 <body>
 	<center>
-		<h1>Import Products Management</h1>
+		<h1>Export Products Management</h1>
         <h2>
-        	<a href="list-import">List Import Products</a>  	
+        	<a href="list-export">List Export Products</a>  	
         </h2>
 	</center>
 	<div align="center">
 		<c:if test="${product != null}">
-			<form action="update-import" method="post">
+			<form action="update-export" method="post">
         </c:if>
         <c:if test="${product == null}">
-			<form action="insert-import" method="post">
+			<form action="insert-export" method="post">
         </c:if>
         <table border="1" cellpadding="5">
             <caption>
@@ -53,16 +53,16 @@
             <tr>
                 <th>Price: </th>
                 <td>
-                	<input type="text" name="price_in" size="45"
-                			value="<c:out value='${product.price_in}' />"
+                	<input type="text" name="price_out" size="45"
+                			value="<c:out value='${product.price_out}' />"
                 	/>
                 </td>
             </tr>
             <tr>
                 <th>Date: </th>
                 <td>
-                	<input type="date" name="date_in" size="10"
-                			value="<c:out value='${product.date_in}' />"
+                	<input type="date" name="date_out" size="45"
+                			value="<c:out value='${product.date_out}' />"
                 	/>
             </tr>
             <tr>

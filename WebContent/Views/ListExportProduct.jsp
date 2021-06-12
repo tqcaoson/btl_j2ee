@@ -8,8 +8,8 @@
 </head>
 <body>
 	<center>
-		<h1>Import Products Management</h1>
-		<h2><a href="new-import">New Import Product</a></h2>
+		<h1>Export Products Management</h1>
+		<h2><a href="new-export">New Export Product</a></h2>
 	<table border="1" cellpadding="6">
 		<tr> 
 			<th> ID</th>
@@ -24,11 +24,11 @@
 			<th><c:out value="${product.ID}"></c:out> </th>
 			<th><c:out value="${product.code}"></c:out> </th>
 			<th><c:out value="${product.code_sp}"></c:out> </th>
-			<th><c:out value="${product.price_in}"></c:out> </th>
-			<th><c:out value="${product.date_in}"></c:out> </th>
+			<th><c:out value="${product.price_out}"></c:out> </th>
+			<th><c:out value="${product.date_out}"></c:out> </th>
 			<th>
-				<a href="edit-import?ID=<c:out value="${product.ID}"/>">Edit</a>
-				<a href="delete-import?ID=<c:out value="${product.ID}"/>">Delete</a>
+				<a href="edit-export?ID=<c:out value="${product.ID}"/>">Edit</a>
+				<a href="delete-export?ID=<c:out value="${product.ID}"/>">Delete</a>
 			</th>
 			</tr>
 	 	</c:forEach>

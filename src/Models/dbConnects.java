@@ -133,6 +133,97 @@ public class dbConnects {
 	    		return product;
 	    		
 	    	}
+	    	
+	    	public boolean insertExportProduct(Export_Product im) throws SQLException {
+	    		openConnection();
+	    		String sql = "insert into export_product (code, code_sp, price_out, date_out) value (?, ?, ?, ?)";
+	    		PreparedStatement prstatement = con.prepareStatement(sql);
+	    		prstatement.setString(1, im.getCode());
+	    		prstatement.setString(2, im.getCode_sp());
+	    		prstatement.setInt(3, im.getPrice_out());
+	    		boolean insertrow = false;
+	    		try {
+	    			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	    			java.sql.Date date = java.sql.Date.valueOf(formatter.format(im.getDate_out()));
+					prstatement.setDate(4, date);
+					insertrow = prstatement.executeUpdate() > 0;
+		    		prstatement.close();
+		    		con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+	    		}
+	    		return insertrow;
+	    	}
+
+	    	public List<Export_Product> getAllExportProduct() throws SQLException {
+	    		String sql = "select * from export_product";
+	    		
+	    		List list = new ArrayList<>();
+	    		openConnection();
+	    		Statement statement = con.createStatement();
+	    		ResultSet rs = statement.executeQuery(sql);
+	    		while (rs.next()) {
+	    			int id = rs.getInt("id");
+	    			String code = rs.getString(2);
+	    			String code_sp = rs.getString(3);
+	    			int price_out = rs.getInt(4);
+	    			Date date_out = rs.getDate(5);
+	    			
+	    			Export_Product product = new Export_Product(id, code, code_sp, price_out, date_out);
+	    			list.add(product);
+	    		}
+	    		rs.close();
+	    		statement.close();
+	    		con.close();
+	    		return list;
+	    	}
+
+	    	public boolean updateExportProduct( Export_Product product) throws SQLException {
+	    		String sql = "update export_product set code=?, code_sp=?, price_out=?, date_out=? where id=?";
+	    		openConnection();
+	    		PreparedStatement pr = con.prepareStatement(sql);
+	    		pr.setString(1, product.getCode());
+	    		pr.setString(2, product.getCode_sp());
+	    		pr.setInt(3, product.getPrice_out());
+	    		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    			java.sql.Date date = java.sql.Date.valueOf(formatter.format(product.getDate_out()));
+	    		pr.setDate(4, date);
+	    		pr.setInt(5, product.getID());
+	    		boolean updateok = pr.executeUpdate() > 0;
+	    		pr.close();
+	    		con.close();
+	    		return updateok;
+	    	}
+
+	    	public boolean deleteExportProduct( Export_Product product) throws SQLException {
+	    		String sql = "delete from export_product where id=?";
+	    		openConnection();
+	    		PreparedStatement pr = con.prepareStatement(sql);
+	    		pr.setInt(1, product.getID());
+	    		boolean deleteok = pr.execute();
+	    		pr.close();
+	    		con.close();
+	    		return deleteok;
+
+	    	}
+	    	public  Export_Product getExportProduct(int id) throws SQLException {
+	    		openConnection();
+	    		Export_Product product = null;
+	    		String sql="select * from export_product where id=?";
+	    		PreparedStatement pr =con.prepareStatement(sql);
+	    		pr.setInt(1,id);
+	    		ResultSet rs=pr.executeQuery();
+	    		while(rs.next()) {
+	    			String code = rs.getString(2);
+	    			String code_sp = rs.getString(3);
+	    			int price_out = rs.getInt(4);
+	    			Date date_out = rs.getDate(5);
+	    			product = new Export_Product(id, code, code_sp, price_out, date_out);
+	    		}
+	    		return product;
+	    		
+	    	}
 
 	    	public static void main(String[] args) {
 	    		// TODO Auto-generated method stub
