@@ -50,22 +50,22 @@ public class ImportProductController extends HttpServlet {
 		try {
 			switch (action) {
 				case "/insert":	
-					insertProduct(request,response);
+					insertImportProduct(request,response);
 					break;
 				case "/new":
 					newForm(request, response);
 					break;
 				case "/update":
-					uppdateProduct(request,response);
+					uppdateImportProduct(request,response);
 					break;
 				case "/edit":
 					editForm(request,response);
 					break;
 				case "/delete":
-					deleteProduct(request,response);
+					deleteImportProduct(request,response);
 					break;
 				default:
-					listProduct(request, response);
+					listImportProduct(request, response);
 					break;
 			}
 	
@@ -83,12 +83,12 @@ public class ImportProductController extends HttpServlet {
 	}
 	private void editForm(HttpServletRequest request,HttpServletResponse response ) throws ServletException,IOException, SQLException{
 		int id_product=Integer.parseInt(request.getParameter("ID"));
-		Import_Product product = bd.getProduct(id_product);
+		Import_Product product = bd.getImportProduct(id_product);
 		request.setAttribute("product", product);
 		RequestDispatcher dispatcher=request.getRequestDispatcher("NewImportProduct.jsp");
 		dispatcher.forward(request, response);		
 	}
-	private void uppdateProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException{
+	private void uppdateImportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException{
 		int id=Integer.parseInt(request.getParameter("ID"));
 		String code=request.getParameter("code");
 		String code_sp=request.getParameter("code_sp");
@@ -97,14 +97,14 @@ public class ImportProductController extends HttpServlet {
 		try {
 			date_in = new SimpleDateFormat("yyyy MM dd").parse(request.getParameter("date_in"));
 			Import_Product product = new Import_Product(id, code, code_sp, price, date_in);
-			bd.updateProduct(product);
+			bd.updateImportProduct(product);
 			response.sendRedirect("list");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	private void insertProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+	private void insertImportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
 		//int id=Integer.parseInt(request.getParameter("id"));
 		String code=request.getParameter("code");
 		String code_sp=request.getParameter("code_sp");
@@ -113,8 +113,7 @@ public class ImportProductController extends HttpServlet {
 		try {
 			date_in = new SimpleDateFormat("yyyy MM dd").parse(request.getParameter("date_in"));
 			Import_Product product=new Import_Product(code, code_sp, price_in, date_in);
-			System.out.print(bd.insertProduct(product));
-			if(bd.insertProduct(product) == true) {
+			if(bd.insertImportProduct(product) == true) {
 				response.sendRedirect("list");
 			}
 		} catch (ParseException e) {
@@ -122,14 +121,14 @@ public class ImportProductController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+	private void deleteImportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
 		int id=Integer.parseInt(request.getParameter("ID"));		
 		Import_Product product = new Import_Product(id);
-		bd.deleteProduct(product);
+		bd.deleteImportProduct(product);
 		response.sendRedirect("list");
 	}
-	private void listProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
-		List<Import_Product> listproduct = bd.getAllProduct();
+	private void listImportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
+		List<Import_Product> listproduct = bd.getAllImportProduct();
 		request.setAttribute("listProduct",listproduct);
 		RequestDispatcher	dispatcher= request.getRequestDispatcher("ListImportProduct.jsp");
 		dispatcher.forward(request, response);

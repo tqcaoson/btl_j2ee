@@ -43,7 +43,7 @@ public class dbConnects {
 	    		}
 	    	}
 
-	    	public boolean insertProduct(Import_Product im) throws SQLException {
+	    	public boolean insertImportProduct(Import_Product im) throws SQLException {
 	    		openConnection();
 	    		String sql = "insert into import_product (code, code_sp, price_in, date_in) value (?, ?, ?, ?)";
 	    		PreparedStatement prstatement = con.prepareStatement(sql);
@@ -66,7 +66,7 @@ public class dbConnects {
 	    		return insertrow;
 	    	}
 
-	    	public List<Import_Product> getAllProduct() throws SQLException {
+	    	public List<Import_Product> getAllImportProduct() throws SQLException {
 	    		String sql = "select * from import_product";
 	    		
 	    		List list = new ArrayList<>();
@@ -89,7 +89,7 @@ public class dbConnects {
 	    		return list;
 	    	}
 
-	    	public boolean updateProduct( Import_Product product) throws SQLException {
+	    	public boolean updateImportProduct( Import_Product product) throws SQLException {
 	    		String sql = "update import_product set code=?, code_sp=?, price_in=?, date_in=? where book_id=?";
 	    		openConnection();
 	    		PreparedStatement pr = con.prepareStatement(sql);
@@ -104,7 +104,7 @@ public class dbConnects {
 	    		return updateok;
 	    	}
 
-	    	public boolean deleteProduct( Import_Product product) throws SQLException {
+	    	public boolean deleteImportProduct( Import_Product product) throws SQLException {
 	    		String sql = "delete from import_product where id=?";
 	    		openConnection();
 	    		PreparedStatement pr = con.prepareStatement(sql);
@@ -115,7 +115,7 @@ public class dbConnects {
 	    		return deleteok;
 
 	    	}
-	    	public  Import_Product getProduct(int id) throws SQLException {
+	    	public  Import_Product getImportProduct(int id) throws SQLException {
 	    		openConnection();
 	    		Import_Product product = null;
 	    		String sql="select * from import_product where id=?";
