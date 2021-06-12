@@ -52,7 +52,9 @@ public class dbConnects {
 	    		prstatement.setInt(3, im.getPrice_in());
 	    		boolean insertrow = false;
 	    		try {
-					prstatement.setDate(4, (java.sql.Date)im.getDate_in());
+	    			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	    			java.sql.Date date = java.sql.Date.valueOf(formatter.format(im.getDate_in()));
+					prstatement.setDate(4, date);
 					insertrow = prstatement.executeUpdate() > 0;
 		    		prstatement.close();
 		    		con.close();
@@ -93,7 +95,9 @@ public class dbConnects {
 	    		pr.setString(1, product.getCode());
 	    		pr.setString(2, product.getCode_sp());
 	    		pr.setInt(3, product.getPrice_in());
-	    		pr.setDate(4, (java.sql.Date)product.getDate_in());
+	    		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    			java.sql.Date date = java.sql.Date.valueOf(formatter.format(product.getDate_in()));
+	    		pr.setDate(4, date);
 	    		pr.setInt(5, product.getID());
 	    		boolean updateok = pr.executeUpdate() > 0;
 	    		pr.close();

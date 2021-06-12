@@ -32,7 +32,7 @@
             	</h2>
             </caption>
         		<c:if test="${product != null}">
-        			<input type="hidden" name="id" value="<c:out value='${product.ID}' />" />
+        			<input type="hidden" name="ID" value="<c:out value='${product.ID}' />" />
         		</c:if>            
             <tr>
                 <th>Code: </th>
@@ -53,7 +53,7 @@
             <tr>
                 <th>Price: </th>
                 <td>
-                	<input type="text" name="price_in" size="5"
+                	<input type="text" name="price_in" size="45"
                 			value="<c:out value='${product.price_in}' />"
                 	/>
                 </td>
@@ -61,7 +61,7 @@
             <tr>
                 <th>Date: </th>
                 <td>
-                	<input type="date" name="date_in" size="5"
+                	<input type="date" name="date_in" size="10"
                 			value="<c:out value='${product.date_in}' />"
                 	/>
             </tr>
