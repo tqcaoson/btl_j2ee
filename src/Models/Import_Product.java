@@ -1,5 +1,6 @@
 package Models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 public class Import_Product {
 	
@@ -72,11 +73,12 @@ public class Import_Product {
 	}
 	
 	public void print() {
+		SimpleDateFormat fomat = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println("ID: "+ ID);
 		System.out.println("Code: "+ code);
 		System.out.println("Code_sp: "+ code_sp);
 		System.out.println("Price: "+ price_in);
-		System.out.println("Price: "+ date_in);
+		System.out.println("Date: "+ fomat.format(date_in));
 	}
 }
 

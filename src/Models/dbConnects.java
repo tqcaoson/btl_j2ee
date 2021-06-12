@@ -52,17 +52,14 @@ public class dbConnects {
 	    		prstatement.setInt(3, im.getPrice_in());
 	    		boolean insertrow = false;
 	    		try {
-					prstatement.setDate(4, (java.sql.Date) new SimpleDateFormat("yyyy-MM-dd").parse(im.getDate_in().toString()));
+					prstatement.setDate(4, (java.sql.Date)im.getDate_in());
 					insertrow = prstatement.executeUpdate() > 0;
 		    		prstatement.close();
 		    		con.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+	    		}
 	    		return insertrow;
 	    	}
 

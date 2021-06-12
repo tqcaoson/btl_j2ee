@@ -49,19 +49,19 @@ public class ImportProductController extends HttpServlet {
 		String action = request.getServletPath();
 		try {
 			switch (action) {
-				case "/insert":	
+				case "/Views/insert":	
 					insertImportProduct(request,response);
 					break;
-				case "/new":
+				case "/Views/new":
 					newForm(request, response);
 					break;
-				case "/update":
+				case "/Views/update":
 					uppdateImportProduct(request,response);
 					break;
-				case "/edit":
+				case "/Views/edit":
 					editForm(request,response);
 					break;
-				case "/delete":
+				case "/Views/delete":
 					deleteImportProduct(request,response);
 					break;
 				default:
@@ -122,7 +122,7 @@ public class ImportProductController extends HttpServlet {
 		}
 	}
 	private void deleteImportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
-		int id=Integer.parseInt(request.getParameter("ID"));		
+		int id = Integer.parseInt(request.getParameter("ID"));		
 		Import_Product product = new Import_Product(id);
 		bd.deleteImportProduct(product);
 		response.sendRedirect("list");
@@ -130,11 +130,8 @@ public class ImportProductController extends HttpServlet {
 	private void listImportProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
 		List<Import_Product> listproduct = bd.getAllImportProduct();
 		request.setAttribute("listProduct",listproduct);
-		RequestDispatcher	dispatcher= request.getRequestDispatcher("ListImportProduct.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ListImportProduct.jsp");
 		dispatcher.forward(request, response);
-		for(Import_Product product : listproduct) {
-			product.print();
-		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
