@@ -8,7 +8,7 @@
 </head>
 <body>
 	<center>
-		<h1>Products Management</h1>
+		<h1>Import Products Management</h1>
         <h2>
         	<a href="list">List Products</a>  	
         </h2>
