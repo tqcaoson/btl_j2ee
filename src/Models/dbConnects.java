@@ -43,7 +43,7 @@ public class dbConnects {
 	    		}
 	    	}
 
-	    	public boolean insertProduct(Import_Emloyment im) throws SQLException {
+	    	public boolean insertProduct(Import_Product im) throws SQLException {
 	    		openConnection();
 	    		String sql = "insert into import_product (code, code_sp, price_in, date_in) value (?, ?, ?, ?)";
 	    		PreparedStatement prstatement = con.prepareStatement(sql);
@@ -66,7 +66,7 @@ public class dbConnects {
 	    		return insertrow;
 	    	}
 
-	    	public List<Import_Emloyment> getAllProduct() throws SQLException {
+	    	public List<Import_Product> getAllProduct() throws SQLException {
 	    		String sql = "select * from import_product";
 	    		
 	    		List list = new ArrayList<>();
@@ -80,7 +80,7 @@ public class dbConnects {
 	    			int price_in = rs.getInt(4);
 	    			Date date_in = rs.getDate(5);
 	    			
-	    			Import_Emloyment product = new Import_Emloyment(id, code, code_sp, price_in, date_in);
+	    			Import_Product product = new Import_Product(id, code, code_sp, price_in, date_in);
 	    			list.add(product);
 	    		}
 	    		rs.close();
@@ -89,7 +89,7 @@ public class dbConnects {
 	    		return list;
 	    	}
 
-	    	public boolean updateProduct( Import_Emloyment product) throws SQLException {
+	    	public boolean updateProduct( Import_Product product) throws SQLException {
 	    		String sql = "update import_product set code=?, code_sp=?, price_in=?, date_in=? where book_id=?";
 	    		openConnection();
 	    		PreparedStatement pr = con.prepareStatement(sql);
@@ -104,7 +104,7 @@ public class dbConnects {
 	    		return updateok;
 	    	}
 
-	    	public boolean deleteProduct( Import_Emloyment product) throws SQLException {
+	    	public boolean deleteProduct( Import_Product product) throws SQLException {
 	    		String sql = "delete from import_product where id=?";
 	    		openConnection();
 	    		PreparedStatement pr = con.prepareStatement(sql);
@@ -115,9 +115,9 @@ public class dbConnects {
 	    		return deleteok;
 
 	    	}
-	    	public  Import_Emloyment getProduct(int id) throws SQLException {
+	    	public  Import_Product getProduct(int id) throws SQLException {
 	    		openConnection();
-	    		Import_Emloyment product = null;
+	    		Import_Product product = null;
 	    		String sql="select * from import_product where id=?";
 	    		PreparedStatement pr =con.prepareStatement(sql);
 	    		pr.setInt(1,id);
@@ -127,7 +127,7 @@ public class dbConnects {
 	    			String code_sp = rs.getString(3);
 	    			int price_in = rs.getInt(4);
 	    			Date date_in = rs.getDate(5);
-	    			product = new Import_Emloyment(id, code, code_sp, price_in, date_in);
+	    			product = new Import_Product(id, code, code_sp, price_in, date_in);
 	    		}
 	    		return product;
 	    		

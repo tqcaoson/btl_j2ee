@@ -1,7 +1,7 @@
 package Models;
 
 import java.util.Date;
-public class Import_Emloyment {
+public class Import_Product {
 	
 	private int ID;
 	private String code;
@@ -9,7 +9,7 @@ public class Import_Emloyment {
 	private int price_in;
 	private Date date_in;
 	
-	public Import_Emloyment(int iD, String code, String code_sp, int price_in, Date date_in) {
+	public Import_Product(int iD, String code, String code_sp, int price_in, Date date_in) {
 		super();
 		ID = iD;
 		this.code = code;
@@ -18,7 +18,7 @@ public class Import_Emloyment {
 		this.date_in = date_in;
 	}
 	
-	public Import_Emloyment(String code, String code_sp, int price_in, Date date_in) {
+	public Import_Product(String code, String code_sp, int price_in, Date date_in) {
 		super();
 		this.code = code;
 		this.code_sp = code_sp;
@@ -26,7 +26,7 @@ public class Import_Emloyment {
 		this.date_in = date_in;
 	}
 
-	public Import_Emloyment(int iD) {
+	public Import_Product(int iD) {
 		super();
 		ID = iD;
 	}
@@ -79,3 +79,4 @@ public class Import_Emloyment {
 		System.out.println("Price: "+ date_in);
 	}
 }
+

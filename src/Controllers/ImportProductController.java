@@ -15,11 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Models.Import_Emloyment;
+import Models.Import_Product;
 import Models.dbConnects;
 
 @WebServlet(urlPatterns= {"/update/*","/insert","/update","/list","/"})
-public class controller extends HttpServlet {
+public class ImportProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private dbConnects bd;
@@ -37,7 +37,7 @@ public class controller extends HttpServlet {
 	}
     
 
-	public controller() {
+	public ImportProductController(){
 		super();
 	}
 
@@ -78,14 +78,14 @@ public class controller extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	private void newForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("productForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("NewImportProduct.jsp");
 		dispatcher.forward(request, response);
 	}
 	private void editForm(HttpServletRequest request,HttpServletResponse response ) throws ServletException,IOException, SQLException{
 		int id_product=Integer.parseInt(request.getParameter("ID"));
-		Import_Emloyment product = bd.getProduct(id_product);
+		Import_Product product = bd.getProduct(id_product);
 		request.setAttribute("product", product);
-		RequestDispatcher dispatcher=request.getRequestDispatcher("productForm.jsp");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("NewImportProduct.jsp");
 		dispatcher.forward(request, response);		
 	}
 	private void uppdateProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException{
@@ -96,7 +96,7 @@ public class controller extends HttpServlet {
 		Date date_in;
 		try {
 			date_in = new SimpleDateFormat("yyyy MM dd").parse(request.getParameter("date_in"));
-			Import_Emloyment product = new Import_Emloyment(id, code, code_sp, price, date_in);
+			Import_Product product = new Import_Product(id, code, code_sp, price, date_in);
 			bd.updateProduct(product);
 			response.sendRedirect("list");
 		} catch (ParseException e) {
@@ -112,7 +112,7 @@ public class controller extends HttpServlet {
 		Date date_in;
 		try {
 			date_in = new SimpleDateFormat("yyyy MM dd").parse(request.getParameter("date_in"));
-			Import_Emloyment product=new Import_Emloyment(code, code_sp, price_in, date_in);
+			Import_Product product=new Import_Product(code, code_sp, price_in, date_in);
 			System.out.print(bd.insertProduct(product));
 			if(bd.insertProduct(product) == true) {
 				response.sendRedirect("list");
@@ -124,16 +124,16 @@ public class controller extends HttpServlet {
 	}
 	private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
 		int id=Integer.parseInt(request.getParameter("ID"));		
-		Import_Emloyment product = new Import_Emloyment(id);
+		Import_Product product = new Import_Product(id);
 		bd.deleteProduct(product);
 		response.sendRedirect("list");
 	}
 	private void listProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
-		List<Import_Emloyment> listproduct = bd.getAllProduct();
+		List<Import_Product> listproduct = bd.getAllProduct();
 		request.setAttribute("listProduct",listproduct);
-		RequestDispatcher	dispatcher= request.getRequestDispatcher("ListProduct.jsp");
+		RequestDispatcher	dispatcher= request.getRequestDispatcher("ListImportProduct.jsp");
 		dispatcher.forward(request, response);
-		for(Import_Emloyment product : listproduct) {
+		for(Import_Product product : listproduct) {
 			product.print();
 		}
 	}
