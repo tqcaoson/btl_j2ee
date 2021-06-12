@@ -90,7 +90,6 @@ public class dbConnects {
 
 	    	public boolean updateImportProduct( Import_Product product) throws SQLException {
 	    		String sql = "update import_product set code=?, code_sp=?, price_in=?, date_in=? where id=?";
-	    		//UPDATE `import_product` SET `id`=[value-1],`code`=[value-2],`code_sp`=[value-3],`price_in`=[value-4],`date_in`=[value-5] WHERE 1
 	    		openConnection();
 	    		PreparedStatement pr = con.prepareStatement(sql);
 	    		pr.setString(1, product.getCode());
