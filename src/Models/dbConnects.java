@@ -225,15 +225,16 @@ public class dbConnects {
 	    		
 	    	
 		}
+		
 		public boolean insertProduct(Product product) throws SQLException {
 		openConnection();
-		String sql = "insert into products (product_name, code, number, price_int, price_out) values (?, ?, ?, ?, ?, ?)";
+		String sql = "insert into products (product_name, code, number, price_int, price_out) values (?, ?, ?, ?, ?)";
 		PreparedStatement prstatement =  con.prepareStatement(sql);
 		prstatement.setString(1, product.getProductName());
 		prstatement.setString(2, product.getCode());
-		prstatement.setInt(4, product.getNumber());
-		prstatement.setInt(5, product.getPriceInt());
-		prstatement.setInt(6, product.getPriceOut());
+		prstatement.setInt(3, product.getNumber());
+		prstatement.setInt(4, product.getPriceInt());
+		prstatement.setInt(5, product.getPriceOut());
 		boolean insertrow = prstatement.executeUpdate() > 0;
 		prstatement.close();
 		con.close();
@@ -268,10 +269,10 @@ public class dbConnects {
 		PreparedStatement pr =  con.prepareStatement(sql);
 		pr.setString(1, product.getProductName());
 		pr.setString(2, product.getCode());
-		pr.setInt(4, product.getNumber());
-		pr.setInt(5, product.getPriceInt());
-		pr.setInt(6, product.getPriceOut());
-		pr.setInt(7, product.getId());
+		pr.setInt(3, product.getNumber());
+		pr.setInt(4, product.getPriceInt());
+		pr.setInt(5, product.getPriceOut());
+		pr.setInt(6, product.getId());
 		boolean updateok = pr.executeUpdate() > 0;
 		pr.close();
 		con.close();
@@ -331,6 +332,8 @@ public class dbConnects {
 		con.close();
 		return list;
 	}
+
+	public boolean updateProduct( Product 
 
 	    	public static void main(String[] args) {
 	    		// TODO Auto-generated method stub
