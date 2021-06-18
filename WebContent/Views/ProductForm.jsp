@@ -12,18 +12,18 @@
 	<center>
 		<h1>Products Management</h1>
         <h3>
-        	<a href="new">Add New Product</a>
+        	<a href="new-product">Add New Product</a>
         	&nbsp;&nbsp;&nbsp;
-        	<a href="list">List All Products</a>
+        	<a href="list-product">List All Products</a>
         	
         </h3>
 	</center>
 	<div align="center">
 		<c:if test="${product != null}">
-			<form action="update" method="post">
+			<form action="update-product" method="post">
         </c:if>
         <c:if test="${product == null}">
-			<form action="insert" method="post">
+			<form action="insert-product" method="post">
         </c:if>
         <table border="1" cellpadding="5">
             <caption>

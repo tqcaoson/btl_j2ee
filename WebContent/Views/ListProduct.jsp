@@ -7,17 +7,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Insert title here</title>
+	<script>
+	function showMess(id) {
+		var option = confirm('Do you want to delete');
+		if(option === true){
+			window.location.href = 'delete-product?id='+id;
+		}
+		
+	}
+</script>
 </head>
 <body>
 	<center>
 		<h1>Products Management</h1>
         <h3>
-        	<a href="new">Add New Product</a>   	
+        	<a href="new-product">Add New Product</a>   	
         
         </h3>
 </center>
 <center>
-<form action="findbyname" method="post" >
+<form action="find-product" method="get" >
 	<label >Enter the name to search </label><input type="text" name="nameproduct" />
 	<input type="submit" value="Find" />
 </form>
@@ -43,12 +52,13 @@
 			<td><c:out value="${product.priceOut}"></c:out> </td>
 			
 			<td>
-				<a href="edit?id=<c:out value="${product.id}"/>">Edit</a>
-				<a href="delete?id=<c:out value="${product.id}"/>">Delete</a>
+				<a href="edit-product?id=<c:out value="${product.id}"/>">Edit</a>
+				<a href="#" onclick="showMess(${product.id})">Delete</a>
 			</td>
 			
 		</tr>
 	 </c:forEach>
 </table>
 </body>
+
 </html>
