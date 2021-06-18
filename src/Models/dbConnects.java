@@ -222,9 +222,31 @@ public class dbConnects {
 	    			product = new Export_Product(id, code, code_sp, price_out, date_out);
 	    		}
 	    		return product;
-	    		
-	    	
 		}
+	    	public List<Export_Product> getExportProductByCode(String key) throws SQLException {
+	    		List<Export_Product> list = new ArrayList<>();
+	    		openConnection();
+	    		String sql = "select * from export_product where code like ?";
+	    		PreparedStatement pr =con.prepareStatement(sql);
+	    		pr.setString(1, "%"+key+"%");
+
+	    		ResultSet rs=pr.executeQuery();
+
+	    		while (rs.next()) {
+	    			int id = rs.getInt("id");
+	    			String code = rs.getString(2);
+	    			String code_sp = rs.getString(3);
+	    			int price_out = rs.getInt(4);
+	    			Date date_out = rs.getDate(5);
+	    			
+	    			Export_Product product = new Export_Product(id, code, code_sp, price_out, date_out);
+	    			list.add(product);
+	    		}
+	    		rs.close();
+	    		pr.close();
+	    		con.close();
+	    		return list;
+	    	}
 		public boolean insertProduct(Product product) throws SQLException {
 		openConnection();
 		String sql = "insert into products (product_name, code, number, price_int, price_out) values (?, ?, ?, ?, ?, ?)";

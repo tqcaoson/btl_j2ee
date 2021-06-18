@@ -12,7 +12,7 @@
 	<center>
 		<h1>Products Management</h1>
         <h3>
-        	<a href="new">Add New Product</a>   	
+        	<a href="new-product">Add New Product</a>   	
         
         </h3>
 </center>
@@ -43,8 +43,8 @@
 			<td><c:out value="${product.priceOut}"></c:out> </td>
 			
 			<td>
-				<a href="edit?id=<c:out value="${product.id}"/>">Edit</a>
-				<a href="delete?id=<c:out value="${product.id}"/>">Delete</a>
+				<a href="edit-product?id=<c:out value="${product.id}"/>">Edit</a>
+				<a href="delete-product?id=<c:out value="${product.id}"/>">Delete</a>
 			</td>
 			
 		</tr>

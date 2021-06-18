@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Models.Export_Product;
+import Models.Product;
 import Models.dbConnects;
 
 @WebServlet(urlPatterns= {
@@ -25,7 +26,9 @@ import Models.dbConnects;
 		"/insert-export",
 		"/edit-export",
 		"/list-export",
-		"/delete-export"})
+		"/delete-export",
+		"/search-export"
+})
 public class ExportProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -70,6 +73,9 @@ public class ExportProductController extends HttpServlet {
 					break;
 				case "/delete-export":
 					deleteExportProduct(request,response);
+					break;
+				case "/search-export":
+					listExportProductbyCode(request,response);
 					break;
 				default:
 					listExportProduct(request, response);
@@ -140,6 +146,20 @@ public class ExportProductController extends HttpServlet {
 		request.setAttribute("listProduct",listproduct);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Views/ListExportProduct.jsp");
 		dispatcher.forward(request, response);
+	}
+	private void listExportProductbyCode(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
+		String nameProduct = request.getParameter("nameproduct");
+		try {
+			List<Product> list = bd.getProductByName(nameProduct);
+			request.setAttribute("listProduct",list);
+			
+			RequestDispatcher dispatcher=request.getRequestDispatcher("Views/ListProduct.jsp");
+			dispatcher.forward(request, response);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

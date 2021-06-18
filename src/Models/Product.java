@@ -1,4 +1,4 @@
-package com.productstore;
+package Models;
 
 public class Product {
 	private int id;
