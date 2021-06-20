@@ -24,7 +24,8 @@ import Models.dbConnects;
 		"/insert-import",
 		"/edit-import",
 		"/list-import",
-		"/delete-import"})
+		"/delete-import",
+		"/search-import"})
 public class ImportProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -70,6 +71,9 @@ public class ImportProductController extends HttpServlet {
 				case "/delete-import":
 					deleteImportProduct(request,response);
 					break;
+				case "/search-import":
+					SearchImportProductbyCode(request,response);
+					break;
 				default:
 					listImportProduct(request, response);
 					break;
@@ -83,6 +87,20 @@ public class ImportProductController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	private void SearchImportProductbyCode(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
+		String nameProduct = request.getParameter("nameproduct");
+		try {
+			List<Import_Product> list = bd.searchImportProduct(nameProduct);
+			request.setAttribute("listProduct",list);
+			
+			RequestDispatcher dispatcher=request.getRequestDispatcher("Views/ListImportProduct.jsp");
+			dispatcher.forward(request, response);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	private void newForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Views/NewImportProduct.jsp");
 		dispatcher.forward(request, response);

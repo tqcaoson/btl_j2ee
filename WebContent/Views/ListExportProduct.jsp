@@ -10,6 +10,10 @@
 	<center>
 		<h1>Export Products Management</h1>
 		<h2><a href="new-export">New Export Product</a></h2>
+	<form action="search-export" method="post" >
+		<label >Enter the name to search </label><input type="text" name="nameproduct" />
+		<input type="submit" value="Find" />
+	</form>
 	<table border="1" cellpadding="6">
 		<tr> 
 			<th> ID</th>

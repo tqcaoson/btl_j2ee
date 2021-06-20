@@ -134,6 +134,25 @@ public class dbConnects {
 	    		
 	    	}
 	    	
+		public List<Import_Product> searchImportProduct(String key) throws SQLException {
+	    		List<Import_Product> list = new ArrayList<>();
+	    		openConnection();
+	    		String sql = "select * from import_product where code like ?";
+	    		PreparedStatement pr =con.prepareStatement(sql);
+	    		pr.setString(1, "%"+key+"%");
+
+	    		ResultSet rs=pr.executeQuery();
+
+	    		while (rs.next()) {
+	    			Import_Product product = new Import_Product(rs.getInt("id"), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5));
+	    			list.add(product);
+	    		}
+	    		rs.close();
+				pr.close();
+	    		con.close();
+	    		return list;
+	    	}
+	
 	    	public boolean insertExportProduct(Export_Product im) throws SQLException {
 	    		openConnection();
 	    		String sql = "insert into export_product (code, code_sp, price_out, date_out) value (?, ?, ?, ?)";
@@ -222,8 +241,137 @@ public class dbConnects {
 	    			product = new Export_Product(id, code, code_sp, price_out, date_out);
 	    		}
 	    		return product;
-	    		
+		}
+	    	public List<Export_Product> getExportProductByCode(String key) throws SQLException {
+	    		List<Export_Product> list = new ArrayList<>();
+	    		openConnection();
+	    		String sql = "select * from export_product where code like ?";
+	    		PreparedStatement pr =con.prepareStatement(sql);
+	    		pr.setString(1, "%"+key+"%");
+
+	    		ResultSet rs=pr.executeQuery();
+
+	    		while (rs.next()) {
+	    			int id = rs.getInt("id");
+	    			String code = rs.getString(2);
+	    			String code_sp = rs.getString(3);
+	    			int price_out = rs.getInt(4);
+	    			Date date_out = rs.getDate(5);
+	    			
+	    			Export_Product product = new Export_Product(id, code, code_sp, price_out, date_out);
+	    			list.add(product);
+	    		}
+	    		rs.close();
+	    		pr.close();
+	    		con.close();
+	    		return list;
 	    	}
+	    	public boolean insertProduct(Product product) throws SQLException {
+	    		openConnection();
+	    		String sql = "insert into products (product_name, code, number, price_int, price_out) values (?, ?, ?, ?, ?)";
+	    		PreparedStatement prstatement =  con.prepareStatement(sql);
+	    		prstatement.setString(1, product.getProductName());
+	    		prstatement.setString(2, product.getCode());
+	    		prstatement.setInt(3, product.getNumber());
+	    		prstatement.setInt(4, product.getPriceInt());
+	    		prstatement.setInt(5, product.getPriceOut());
+	    		boolean insertrow = prstatement.executeUpdate() > 0;
+	    		prstatement.close();
+	    		con.close();
+	    		return insertrow;
+	    	}
+
+	public List<Product> getAllProduct() throws SQLException {
+		String sql = "select * from products";
+		List<Product> list = new ArrayList<>();
+		openConnection();
+		Statement statement = con.createStatement();
+		ResultSet rs = statement.executeQuery(sql);
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String nameProduct = rs.getString("product_name");
+			String code = rs.getString("code");
+			int number = rs.getInt("number");
+			int priceInt = rs.getInt("price_int");
+			int priceOut = rs.getInt("price_out");
+			Product product = new Product(id, nameProduct, code, number, priceInt, priceOut);
+			list.add(product);
+		}
+		rs.close();
+		statement.close();
+		con.close();
+		return list;
+	}
+
+	public boolean updateProduct( Product product) throws SQLException {
+		String sql = "update products set product_name=?, code=?, number=?, price_int=?, price_out=? where id=?";
+		openConnection();
+		PreparedStatement pr =  con.prepareStatement(sql);
+		pr.setString(1, product.getProductName());
+		pr.setString(2, product.getCode());
+		pr.setInt(3, product.getNumber());
+		pr.setInt(4, product.getPriceInt());
+		pr.setInt(5, product.getPriceOut());
+		pr.setInt(6, product.getId());
+		boolean updateok = pr.executeUpdate() > 0;
+		pr.close();
+		con.close();
+		return updateok;
+	}
+
+	public boolean deleteProduct( Product product) throws SQLException {
+		String sql = "delete from products where id=?";
+		openConnection();
+		PreparedStatement pr = con.prepareStatement(sql);
+		pr.setInt(1, product.getId());
+		boolean deleteok = pr.execute();
+		pr.close();
+		con.close();
+		return deleteok;
+
+	}
+	public  Product getProduct(int id) throws SQLException {
+		openConnection();
+		Product product=null;
+		String sql="select * from products where id=?";
+		PreparedStatement pr =con.prepareStatement(sql);
+		pr.setInt(1,id);
+		ResultSet rs=pr.executeQuery();
+		while(rs.next()) {
+			String nameProduct = rs.getString("product_name");
+			String code = rs.getString("code");
+			int number = rs.getInt("number");
+			int priceInt = rs.getInt("price_int");
+			int priceOut = rs.getInt("price_out");
+			product=new Product(id, nameProduct, code, number, priceInt, priceOut);
+		}
+		return product;
+
+	}
+	public List<Product> getProductByName(String name) throws SQLException {
+		List<Product> list = new ArrayList<>();
+		openConnection();
+		String sql = "select * from products where product_name like ?";
+		PreparedStatement pr =con.prepareStatement(sql);
+		pr.setString(1, "%"+name+"%");
+
+		ResultSet rs=pr.executeQuery();
+
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			String nameProduct = rs.getString("product_name");
+			String code = rs.getString("code");
+			int number = rs.getInt("number");
+			int priceInt = rs.getInt("price_int");
+			int priceOut = rs.getInt("price_out");
+			Product product = new Product(id, nameProduct, code, number, priceInt, priceOut);
+			list.add(product);
+		}
+		rs.close();
+		pr.close();
+		con.close();
+		return list;
+	}
 
 	    	public static void main(String[] args) {
 	    		// TODO Auto-generated method stub
