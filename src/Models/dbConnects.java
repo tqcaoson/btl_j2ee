@@ -134,7 +134,7 @@ public class dbConnects {
 	    		
 	    	}
 	    	
-		public List<import_Product> getExportProductByCode(String key) throws SQLException {
+		public List<import_Product> searchImportProduct(String key) throws SQLException {
 	    		List<import_Product> list = new ArrayList<>();
 	    		openConnection();
 	    		String sql = "select * from import_product where code like ?";
