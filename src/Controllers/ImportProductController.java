@@ -24,7 +24,8 @@ import Models.dbConnects;
 		"/insert-import",
 		"/edit-import",
 		"/list-import",
-		"/delete-import"})
+		"/delete-import",
+		"/search-import"})
 public class ImportProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -69,6 +70,9 @@ public class ImportProductController extends HttpServlet {
 					break;
 				case "/delete-import":
 					deleteImportProduct(request,response);
+					break;
+				case "/search-import":
+					SearchImportProduct(request,response);
 					break;
 				default:
 					listImportProduct(request, response);
