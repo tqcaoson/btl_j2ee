@@ -11,6 +11,8 @@
 		<h1>Import Products Management</h1>
 		<h2><a href="new-import">New Import Product</a></h2>
 	<table border="1" cellpadding="6">
+		<label >Enter the name to search </label><input type="text" name="nameproduct" />
+		<input type="submit" value="Find" />
 		<tr> 
 			<th> ID</th>
 			<th> Code</th>
