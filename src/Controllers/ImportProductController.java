@@ -72,7 +72,7 @@ public class ImportProductController extends HttpServlet {
 					deleteImportProduct(request,response);
 					break;
 				case "/search-import":
-					SearchImportProduct(request,response);
+					SearchImportProductbyCode(request,response);
 					break;
 				default:
 					listImportProduct(request, response);
@@ -90,7 +90,7 @@ public class ImportProductController extends HttpServlet {
 	private void SearchImportProductbyCode(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
 		String nameProduct = request.getParameter("nameproduct");
 		try {
-			List<Product> list = bd.searchImportProduct(nameProduct);
+			List<Import_Product> list = bd.searchImportProduct(nameProduct);
 			request.setAttribute("listProduct",list);
 			
 			RequestDispatcher dispatcher=request.getRequestDispatcher("Views/ListImportProduct.jsp");

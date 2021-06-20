@@ -150,10 +150,10 @@ public class ExportProductController extends HttpServlet {
 	private void listExportProductbyCode(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
 		String nameProduct = request.getParameter("nameproduct");
 		try {
-			List<Product> list = bd.getProductByName(nameProduct);
+			List<Export_Product> list = bd.getExportProductByCode(nameProduct);
 			request.setAttribute("listProduct",list);
 			
-			RequestDispatcher dispatcher=request.getRequestDispatcher("Views/ListProduct.jsp");
+			RequestDispatcher dispatcher=request.getRequestDispatcher("Views/ListExportProduct.jsp");
 			dispatcher.forward(request, response);
 			
 		} catch (SQLException e) {

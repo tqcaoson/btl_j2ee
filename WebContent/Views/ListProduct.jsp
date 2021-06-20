@@ -17,7 +17,7 @@
         </h3>
 </center>
 <center>
-<form action="findbyname" method="post" >
+<form action="find-product" method="post" >
 	<label >Enter the name to search </label><input type="text" name="nameproduct" />
 	<input type="submit" value="Find" />
 </form>

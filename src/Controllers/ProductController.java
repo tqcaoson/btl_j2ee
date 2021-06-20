@@ -23,6 +23,7 @@ import Models.dbConnects;
 		"/insert-product",
 		"/edit-product",
 		"/list-product",
+		"/find-product",
 		"/delete-product"})
 public class ProductController extends HttpServlet {
 	
@@ -59,6 +60,9 @@ public class ProductController extends HttpServlet {
 				break;
 			case "/delete-product":
 				deleteProduct(request,response);
+				break;
+			case "/find-product":
+				findName(request, response);
 				break;
 			default:
 				listProduct(request, response);
@@ -102,8 +106,6 @@ public class ProductController extends HttpServlet {
 	
 	}
 	private void insertProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
-
-
 			String nameProduct=request.getParameter("product_name");
 			String code=request.getParameter("code");
 			int number = Integer.parseInt(request.getParameter("number"));
@@ -126,7 +128,7 @@ public class ProductController extends HttpServlet {
 		RequestDispatcher dispatcher= request.getRequestDispatcher("Views/ListProduct.jsp");
 		dispatcher.forward(request, response);
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void findName(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException,ServletException {
 		String nameProduct = request.getParameter("nameproduct");
 		try {
 			List<Product> list = productDAO.getProductByName(nameProduct);
@@ -139,11 +141,9 @@ public class ProductController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		doGet(request, response);
 	}
 
