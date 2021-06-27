@@ -12,6 +12,10 @@
 	<center>
 		<h1>Products Management</h1>
         <h3>
+       		<a href="list-import">List Import Products</a>
+       		<br>
+        	<a href="list-export">List Export Products</a>
+        	<br>
         	<a href="new-product">Add New Product</a>   	
         
         </h3>

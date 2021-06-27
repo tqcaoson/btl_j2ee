@@ -9,7 +9,13 @@
 <body>
 	<center>
 		<h1>Import Products Management</h1>
-		<h2><a href="new-import">New Import Product</a></h2>
+		<h2>
+		<a href="list-product">List All Products</a>
+		<br>
+        <a href="list-export">List Export Products</a>
+        <br>
+		<a href="new-import">New Import Product</a>
+		</h2>
 		<form action="search-import" method="post" >
 			<label >Enter the name to search </label><input type="text" name="nameproduct" />
 			<input type="submit" value="Find" />
